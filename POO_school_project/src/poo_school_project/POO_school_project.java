@@ -16,6 +16,11 @@ public class POO_school_project {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new connexion().setVisible(true);
+            }
+        });
     }
     
 }
