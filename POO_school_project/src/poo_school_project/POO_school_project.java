@@ -21,6 +21,14 @@ public class POO_school_project {
                 new connexion().setVisible(true);
             }
         });
+        
     }
+      // Variables declaration - do not modify                     
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JRadioButton jRadioButton1;
+    // End of variables declaration       
+    
     
 }
