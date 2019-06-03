@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package poo_school_project;
-
+import connexion.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  *
  * @author Pierre
@@ -14,13 +16,18 @@ public class POO_school_project {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new connexion().setVisible(true);
-            }
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        ArrayList<String> alpha = null;
+        
+        Connexion testTaCo = new Connexion("ecole","root","");
+        alpha = testTaCo.remplirChampsTable("personne");
+        alpha.forEach((value) -> System.out.println(value));
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new connexion().setVisible(true);
         });
+        
     }
+    
     
 }
