@@ -159,7 +159,15 @@ public class studentGraph extends javax.swing.JFrame {
             new String [] {
                 "n°inscription", "Prénom", "Nom", "nom classe", "niv classe"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
