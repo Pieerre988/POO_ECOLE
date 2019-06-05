@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package poo_school_project;
+import view.connexion;
 import connexion.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
