@@ -11,14 +11,19 @@ import java.util.*;
  * @author talmo
  */
 public class Report {
-    public String comment;
-    public ArrayList<ReportDetail> details;
-    public Report(){}
-    public Report(String c)
+    private String comment;
+    private long ID,trimester;
+    private ArrayList<ReportDetail> details;
+    private Report(){}
+    
+    public Report(long id, String c, long t)
     {
+        this.ID=id;
         this.comment=c;
+        this.trimester=t;
         this.details=new ArrayList<>();
     }
+    
     public void add(ReportDetail rd)
     {
         this.details.add(rd);
@@ -36,4 +41,37 @@ public class Report {
             temp.display();
         System.out.println("\nTrim. medium: "+this.getMedium()+"\nTrim. comment: "+this.comment);
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public long getTrimester() {
+        return trimester;
+    }
+
+    public void setTrimester(long trimester) {
+        this.trimester = trimester;
+    }
+
+    public ArrayList<ReportDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(ArrayList<ReportDetail> details) {
+        this.details = details;
+    }
+    
 }

@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package poo_school_project;
-import view.connexion;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import view.Bulletins;
+import view.*;
 import java.sql.*;
 import java.util.*;
-import view.Bulletins;
 import Model.*;
+import Controler.*;
+
 /**
  *
  * @author Pierre
@@ -22,35 +20,14 @@ public class POO_school_project {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ArrayList<String> alpha = null;
-
-        TreeMap<Long,Student> students = new TreeMap<>();
-        try {
-            ArrayList<String> x = new ArrayList<>();
-            Connexion co = new Connexion("ecole","root","");
-            ResultSet rs = co.executeQuery("SELECT * FROM personne WHERE type = 0");
-            while(rs.next())
-            {
-                
-                Student student = new Student(rs.getLong("ID"),rs.getString("Prenom"),rs.getString("Nom"));
-                Long key=student.getID();
-                students.put(key,student);
-            }
-            for(HashMap.Entry<Long, Student> entry : students.entrySet())
-            {
-                System.out.println("ID: "+entry.getKey());
-                entry.getValue().display();
-            }
-                
-        
-        }catch (ClassNotFoundException e) {System.err.println(e);} 
-        catch (SQLException ex) {}
-        
-        
+        ArrayList<Classe> a = new ArrayList<>();
+        ClasseDAO c = new ClasseDAO();
+        c.init(a);
+        /*for(Classe temp: a)
+            System.out.println("Niveau: "+temp.getNiveau()+"\nNom: "+temp.getNom());
         java.awt.EventQueue.invokeLater(() -> {
-
-            new connexion().setVisible(true);
-        });
+           new connexion().setVisible(true);
+        });*/
         
     }
     
