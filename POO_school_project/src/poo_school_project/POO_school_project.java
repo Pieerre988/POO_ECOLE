@@ -8,12 +8,8 @@ import view.*;
 import java.sql.*;
 import java.util.*;
 import Model.*;
-<<<<<<< HEAD
 import view.studentGraph;
-=======
 import Controler.*;
-
->>>>>>> master
 /**
  *
  * @author Pierre
