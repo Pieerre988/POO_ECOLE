@@ -23,11 +23,11 @@ public class POO_school_project {
         ArrayList<Classe> a = new ArrayList<>();
         ClasseDAO c = new ClasseDAO();
         c.init(a);
-        /*for(Classe temp: a)
+       for(Classe temp: a)
             System.out.println("Niveau: "+temp.getNiveau()+"\nNom: "+temp.getNom());
         java.awt.EventQueue.invokeLater(() -> {
            new connexion().setVisible(true);
-        });*/
+        });
         
     }
     
