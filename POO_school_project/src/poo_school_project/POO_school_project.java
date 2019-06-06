@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.*;
 import view.Bulletins;
 import Model.*;
+import view.studentGraph;
 /**
  *
  * @author Pierre
@@ -49,7 +50,7 @@ public class POO_school_project {
         
         java.awt.EventQueue.invokeLater(() -> {
 
-            new connexion().setVisible(true);
+            new studentGraph().setVisible(true);
         });
         
     }
