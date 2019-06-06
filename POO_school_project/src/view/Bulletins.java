@@ -25,6 +25,10 @@ public class Bulletins extends javax.swing.JFrame {
         MyinitComponents(Eleve, Bullet);        
     }
 
+    private Bulletins() {
+        initComponents();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -394,22 +398,22 @@ public class Bulletins extends javax.swing.JFrame {
 
         jLabel5.setText(Eleve.getFname());
         
-        Object[][] Bulleti = new Object[Bullet.details.size()][4];
+        Object[][] Bulleti = new Object[Bullet.getDetails().size()][4];
         
-        for(int i = 0; i < Bullet.details.size(); i++){
+        for(int i = 0; i < Bullet.getDetails().size(); i++){
             for(int j = 0; j < 4; j++){
                 switch(j){
                     case 0:
-                        Bulleti[i][j] = Bullet.details.get(i).professor.matter;
+                        Bulleti[i][j] = Bullet.getDetails().get(i).getProfessor().matter;
                         break;
                     case 1:
-                        Bulleti[i][j] = Bullet.details.get(i).getMedium();
+                        Bulleti[i][j] = Bullet.getDetails().get(i).getMedium();
                         break;
                     case 2:
-                        Bulleti[i][j] = Bullet.details.get(i).professor.lname;
+                        Bulleti[i][j] = Bullet.getDetails().get(i).getProfessor().lname;
                         break;
                     case 3:
-                        Bulleti[i][j] = Bullet.details.get(i).comment;
+                        Bulleti[i][j] = Bullet.getDetails().get(i).getComment();
                         break;
                 }
             }
@@ -478,7 +482,7 @@ public class Bulletins extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Trimestre " + Bullet.comment, jPanel1);
+        jTabbedPane2.addTab("Trimestre " + Bullet.getComment(), jPanel1);
 
         jLabel7.setText("Nom :");
 
@@ -693,6 +697,11 @@ public class Bulletins extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Bulletins().setVisible(true);
+            }
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

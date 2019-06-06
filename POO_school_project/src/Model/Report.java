@@ -11,10 +11,10 @@ import java.util.*;
  * @author talmo
  */
 public class Report {
-    public String comment;
-    public ArrayList<ReportDetail> details;
-    public Report(){}
-    public Report(String c)
+    private String comment;
+    private ArrayList<ReportDetail> details;
+    private Report(){}
+    private Report(String c)
     {
         this.comment=c;
         this.details=new ArrayList<>();
