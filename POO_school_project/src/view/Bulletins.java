@@ -73,7 +73,7 @@ public class Bulletins extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true
+                false, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
