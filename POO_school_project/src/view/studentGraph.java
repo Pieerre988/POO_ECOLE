@@ -10,6 +10,7 @@ import Model.Student;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.TreeMap;
 import javax.swing.table.DefaultTableModel;
 
@@ -467,10 +468,28 @@ public class studentGraph extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        /*jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "n°inscription", "Prénom", "Nom", "nom classe", "niv classe"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
 
-        ArrayList<String> alpha = null;
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });*/
+       // ArrayList<String> alpha = null;
 
-        TreeMap<Long,Student> students = new TreeMap<>();
+       // TreeMap<Long,Student> students = new TreeMap<>();
         try {
             ArrayList<String> x = new ArrayList<>();
             Connexion co = new Connexion("ecole","root","");
@@ -744,7 +763,7 @@ public class studentGraph extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
+        ArrayList <Student> affEtudiant = new ArrayList();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             new studentGraph().setVisible(true);

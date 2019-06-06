@@ -50,7 +50,7 @@ public class POO_school_project {
         
         java.awt.EventQueue.invokeLater(() -> {
 
-            new studentGraph().setVisible(true);
+            new connexion().setVisible(true);
         });
         
     }
