@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package view;
+import Model.*;
+import java.util.Iterator;
 
 /**
  *
@@ -19,12 +21,8 @@ public class Bulletins extends javax.swing.JFrame {
     /**
      * Creates new form bulletins
      */
-    public Bulletins(String no, String pren, String ident, int an) {
-        nom = new String(no);
-        prenom = new String(pren);
-        id = new String(ident);
-        annee = an;
-        MyinitComponents(nom, prenom, id);
+    public Bulletins(Student Eleve, Report Bullet) {
+        MyinitComponents(Eleve, Bullet);        
     }
 
     /**
@@ -352,7 +350,8 @@ public class Bulletins extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void MyinitComponents(String no, String pren, String ident) {
+    @SuppressWarnings("empty-statement")
+    private void MyinitComponents(Student Eleve, Report Bullet) {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -391,19 +390,35 @@ public class Bulletins extends javax.swing.JFrame {
 
         jLabel3.setText("ID :");
 
-        jLabel4.setText(no);
+        jLabel4.setText(Eleve.getLname());
 
-        jLabel5.setText(pren);
-
-        jLabel6.setText(ident);
-
+        jLabel5.setText(Eleve.getFname());
+        
+        Object[][] Bulleti = new Object[Bullet.details.size()][4];
+        
+        for(int i = 0; i < Bullet.details.size(); i++){
+            for(int j = 0; j < 4; j++){
+                switch(j){
+                    case 0:
+                        Bulleti[i][j] = Bullet.details.get(i).professor.matter;
+                        break;
+                    case 1:
+                        Bulleti[i][j] = Bullet.details.get(i).getMedium();
+                        break;
+                    case 2:
+                        Bulleti[i][j] = Bullet.details.get(i).professor.lname;
+                        break;
+                    case 3:
+                        Bulleti[i][j] = Bullet.details.get(i).comment;
+                        break;
+                }
+            }
+        }
+        
+        jLabel6.setText(Integer.toString((int)Eleve.getID()));
+                
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Maths", "0", "dsqd", "Aucune"},
-                {"Physique", "10", "rtezyrty", "Aucune"},
-                {"Chimie", "15", "khgjkjh", "Aucune"},
-                {"Info", "20", "nbvcnbn", "Aucune"}
-            },
+            Bulleti,
             new String [] {
                 "Matière", "Moyenne", "Enseignant", "Appréciation"
             }
@@ -463,7 +478,7 @@ public class Bulletins extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("1er Trimestre", jPanel1);
+        jTabbedPane2.addTab("Trimestre " + Bullet.comment, jPanel1);
 
         jLabel7.setText("Nom :");
 
@@ -471,11 +486,11 @@ public class Bulletins extends javax.swing.JFrame {
 
         jLabel9.setText("ID :");
 
-        jLabel10.setText(no);
+        jLabel10.setText(Eleve.getLname());
 
-        jLabel11.setText(pren);
+        jLabel11.setText(Eleve.getFname());
 
-        jLabel12.setText(ident);
+        jLabel12.setText(Integer.toString((int)Eleve.getID()));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -551,11 +566,11 @@ public class Bulletins extends javax.swing.JFrame {
 
         jLabel15.setText("ID :");
 
-        jLabel16.setText(no);
+        jLabel16.setText(Eleve.getLname());
 
-        jLabel17.setText(pren);
+        jLabel17.setText(Eleve.getFname());
 
-        jLabel18.setText(ident);
+        jLabel18.setText(Integer.toString((int)Eleve.getID()));
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -678,11 +693,6 @@ public class Bulletins extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Bulletins("nom", "prenom", "id", 1).setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -47,9 +47,54 @@ public class POO_school_project {
         catch (SQLException ex) {}
         
         
+        //Création de l'élève test
+        Student Eleve = new Student(1, "Adrien", "Talmont");
+        
+        //Création du bulletin test
+        Report Bullet = new Report("1");
+        
+        //Création de 3 professeur pour 3 matières
+        Professor LeCor = new Professor("Luc","Le Cor","Proba");
+        Professor Mokber = new Professor("Arash", "Mokber", "TS2");
+        Professor Segado = new Professor("Jean-Pierre", "Segado", "Java");
+        
+        //Création des 3 Detailbulletins
+        ReportDetail BulletProb = new ReportDetail(LeCor, "Moyen");
+        ReportDetail BulletTs = new ReportDetail(Mokber, "Très bien");
+        ReportDetail BulletJava = new ReportDetail(Segado, "Mauvais");
+        
+        //2 Evaluation en Proba
+        Grade ProbaDS1 = new Grade(10, "");
+        Grade ProbaDS2 = new Grade(15, "");
+        
+        //2 Evaluation en TS
+        Grade TSDS1 = new Grade(10, "");
+        Grade TSDS2 = new Grade(20, "");
+        
+        //2 Evalution en Java
+        Grade JavaDS1 = new Grade(5, "");
+        Grade JavaDS2 = new Grade(9, "");
+        
+        //Ajout des Eval en Proba
+        BulletProb.add(ProbaDS1);
+        BulletProb.add(ProbaDS2);
+        
+        //Ajout des Eval en TS
+        BulletTs.add(TSDS1);
+        BulletTs.add(TSDS2);
+        
+        //Ajout des Eval en Java
+        BulletJava.add(JavaDS1);
+        BulletJava.add(JavaDS2);
+        
+        //Ajout des DetailBulletins dans le bulletin
+        Bullet.add(BulletProb);
+        Bullet.add(BulletTs);
+        Bullet.add(BulletJava);
+        
         java.awt.EventQueue.invokeLater(() -> {
 
-            new connexion().setVisible(true);
+            new Bulletins(Eleve, Bullet).setVisible(true);
         });
         
     }
