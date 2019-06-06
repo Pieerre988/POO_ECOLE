@@ -8,6 +8,7 @@ import view.connexion;
 import connexion.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import view.Bulletins;
 /**
  *
  * @author Pierre
@@ -25,7 +26,7 @@ public class POO_school_project {
         alpha.forEach((value) -> System.out.println(value));
         
         java.awt.EventQueue.invokeLater(() -> {
-            new connexion().setVisible(true);
+            new Bulletins().setVisible(true);
         });
         
     }
