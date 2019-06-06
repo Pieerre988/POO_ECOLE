@@ -167,13 +167,13 @@
                           <Data value="15"/>
                           <Data value="20"/>
                         </Column>
-                        <Column editable="true" title="Enseignant" type="java.lang.Object">
+                        <Column editable="false" title="Enseignant" type="java.lang.Object">
                           <Data value="dsqd"/>
                           <Data value="rtezyrty"/>
                           <Data value="khgjkjh"/>
                           <Data value="nbvcnbn"/>
                         </Column>
-                        <Column editable="false" title="Appr&#xe9;ciation" type="java.lang.Object">
+                        <Column editable="true" title="Appr&#xe9;ciation" type="java.lang.Object">
                           <Data value="Aucune"/>
                           <Data value="Aucune"/>
                           <Data value="Aucune"/>
