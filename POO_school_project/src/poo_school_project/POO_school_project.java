@@ -46,14 +46,11 @@ public class POO_school_project {
         }catch (ClassNotFoundException e) {System.err.println(e);} 
         catch (SQLException ex) {}
         
-        /*Connexion testTaCo = new Connexion("ecole","root","");
-        alpha = testTaCo.remplirChampsTable("personne");
-        alpha.forEach((value) -> System.out.println(value));
         
         java.awt.EventQueue.invokeLater(() -> {
 
             new connexion().setVisible(true);
-        });*/
+        });
         
     }
     
