@@ -2,14 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package connexion;
+package Model;
 
 /*
  * 
  * Librairies importées
  */
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * 
@@ -27,6 +27,7 @@ public class Connexion {
     private Statement stmt;
     private ResultSet rset;
     private ResultSetMetaData rsetMeta;
+    
     /**
      * ArrayList public pour les tables
      */
@@ -57,10 +58,14 @@ public class Connexion {
         String urlDatabase = "jdbc:mysql://localhost/" + nameDatabase;
 
         //création d'une connexion JDBC à la base 
-        conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
+        conn = (Connection) DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
+    }
+
+    private Statement createStatement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -73,7 +78,7 @@ public class Connexion {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public Connexion(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
+   /*public Connection(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -93,7 +98,7 @@ public class Connexion {
             stmt = conn.createStatement();
 
         }
-    }
+    }*/
 
     /**
      * Méthode qui ajoute la table en parametre dans son ArrayList
@@ -178,7 +183,7 @@ public class Connexion {
 
         // creation d'une ArrayList de String
         ArrayList<String> liste;
-        liste = new ArrayList<String>();
+        liste = new ArrayList<>();
 
         // tant qu'il reste une ligne 
         while (rset.next()) {
@@ -208,5 +213,68 @@ public class Connexion {
      */
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
+    
+    
+    }
+    
+    public ResultSet executeQuery(String requete) throws SQLException {
+        ResultSet rs;
+        return rs = stmt.executeQuery(requete);
+    }
+
+    public Connection getConn() {
+        return conn;
+    }
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
+
+    public Statement getStmt() {
+        return stmt;
+    }
+
+    public void setStmt(Statement stmt) {
+        this.stmt = stmt;
+    }
+
+    public ResultSet getRset() {
+        return rset;
+    }
+
+    public void setRset(ResultSet rset) {
+        this.rset = rset;
+    }
+
+    public ResultSetMetaData getRsetMeta() {
+        return rsetMeta;
+    }
+
+    public void setRsetMeta(ResultSetMetaData rsetMeta) {
+        this.rsetMeta = rsetMeta;
+    }
+
+    public ArrayList<String> getTables() {
+        return tables;
+    }
+
+    public void setTables(ArrayList<String> tables) {
+        this.tables = tables;
+    }
+
+    public ArrayList<String> getRequetes() {
+        return requetes;
+    }
+
+    public void setRequetes(ArrayList<String> requetes) {
+        this.requetes = requetes;
+    }
+
+    public ArrayList<String> getRequetesMaj() {
+        return requetesMaj;
+    }
+
+    public void setRequetesMaj(ArrayList<String> requetesMaj) {
+        this.requetesMaj = requetesMaj;
     }
 }
