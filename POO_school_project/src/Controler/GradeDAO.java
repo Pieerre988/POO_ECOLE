@@ -27,7 +27,7 @@ public class GradeDAO extends DAO<Grade>{
         
         public void init(Classe c, Student s, Report r, ReportDetail rd) throws SQLException
         {
-            rset = stmt.executeQuery("SELECT * FROM evaluation WHERE ID_detailbulletin = "+rd.getID());
+            rset = stmt.executeQuery("SELECT * FROM evaluation WHERE ID_detailbulletin = "+ rd.getID());
             while(rset.next())
             {
                 //private Grade(double s, String c)

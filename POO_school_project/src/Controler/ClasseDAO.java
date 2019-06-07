@@ -27,7 +27,7 @@ public class ClasseDAO extends DAO<Classe>{
         
         public void init(ArrayList<Classe> a) throws SQLException
         {
-            rset = stmt.executeQuery("SELECT * FROM classe WHERE Id_annee = 1");
+            rset = stmt.executeQuery("SELECT * FROM classe");
             while(rset.next())
             {
                 Classe c = new Classe(rset.getLong(1),rset.getLong(2),rset.getString(3), "Test");

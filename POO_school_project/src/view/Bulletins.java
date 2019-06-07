@@ -5,6 +5,9 @@
  */
 package view;
 import Model.*;
+import Controler.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -21,8 +24,27 @@ public class Bulletins extends javax.swing.JFrame {
     /**
      * Creates new form bulletins
      */
-    public Bulletins(Student Eleve, Report Bullet) {
-        MyinitComponents(Eleve, Bullet);        
+    public Bulletins(Student Eleve, int annee) throws SQLException {
+        
+        ArrayList<Classe> classes = new ArrayList<>();
+        
+        ClasseDAO DaoClasse = new ClasseDAO();
+        
+        DaoClasse.init(classes);
+        
+        ArrayList<Report> Bulletin = new ArrayList<>();
+        
+        for(Classe c : classes){
+            if(c.getAnnee_scolaire() == annee){
+                for (Student s : c.getStudents()){
+                    if(s.getID() == Eleve.getID()){
+                        Bulletin = s.getReports();
+                    }
+                }
+            }
+        }
+        
+        MyinitComponents(Eleve, Bulletin);        
     }
 
     private Bulletins() {
@@ -355,7 +377,7 @@ public class Bulletins extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     @SuppressWarnings("empty-statement")
-    private void MyinitComponents(Student Eleve, Report Bullet) {
+    private void MyinitComponents(Student Eleve, ArrayList<Report> Bulletin) {
 
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -398,28 +420,28 @@ public class Bulletins extends javax.swing.JFrame {
 
         jLabel5.setText(Eleve.getFname());
         
-        Object[][] Bulleti = new Object[Bullet.getDetails().size()][4];
+        jLabel6.setText(Integer.toString((int)Eleve.getID()));
         
-        for(int i = 0; i < Bullet.getDetails().size(); i++){
+        Object[][] Bulleti = new Object[Bulletin.get(0).getDetails().size()][4];
+        
+        for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
             for(int j = 0; j < 4; j++){
                 switch(j){
                     case 0:
-                        Bulleti[i][j] = Bullet.getDetails().get(i).getProfessor().matter;
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().matter;
                         break;
                     case 1:
-                        Bulleti[i][j] = Bullet.getDetails().get(i).getMedium();
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getMedium();
                         break;
                     case 2:
-                        Bulleti[i][j] = Bullet.getDetails().get(i).getProfessor().lname;
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().lname;
                         break;
                     case 3:
-                        Bulleti[i][j] = Bullet.getDetails().get(i).getComment();
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getComment();
                         break;
                 }
             }
         }
-        
-        jLabel6.setText(Integer.toString((int)Eleve.getID()));
                 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             Bulleti,
@@ -482,8 +504,10 @@ public class Bulletins extends javax.swing.JFrame {
                 .addContainerGap(65, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Trimestre " + Bullet.getComment(), jPanel1);
-
+        jTabbedPane2.addTab("1er Trimestre", jPanel1);
+        
+        if (Bulletin.size() == 2){
+        
         jLabel7.setText("Nom :");
 
         jLabel8.setText("Prénom :");
@@ -495,14 +519,28 @@ public class Bulletins extends javax.swing.JFrame {
         jLabel11.setText(Eleve.getFname());
 
         jLabel12.setText(Integer.toString((int)Eleve.getID()));
+        
+        for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
+            for(int j = 0; j < 4; j++){
+                switch(j){
+                    case 0:
+                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().matter;
+                        break;
+                    case 1:
+                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getMedium();
+                        break;
+                    case 2:
+                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().lname;
+                        break;
+                    case 3:
+                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getComment();
+                        break;
+                }
+            }
+        }
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Maths", "0", "dsqd", "Aucune"},
-                {"Physique", "10", "rtezyrty", "Aucune"},
-                {"Chimie", "15", "khgjkjh", "Aucune"},
-                {"Info", "20", "nbvcnbn", "Aucune"}
-            },
+            Bulleti,
             new String [] {
                 "Matière", "Moyenne", "Enseignant", "Appréciation"
             }
@@ -563,7 +601,11 @@ public class Bulletins extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("2ème Trimestre", jPanel4);
-
+        
+        }
+        
+        if(Bulletin.size() == 3){
+            
         jLabel13.setText("Nom :");
 
         jLabel14.setText("Prénom :");
@@ -575,14 +617,28 @@ public class Bulletins extends javax.swing.JFrame {
         jLabel17.setText(Eleve.getFname());
 
         jLabel18.setText(Integer.toString((int)Eleve.getID()));
+        
+        for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
+            for(int j = 0; j < 4; j++){
+                switch(j){
+                    case 0:
+                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().matter;
+                        break;
+                    case 1:
+                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getMedium();
+                        break;
+                    case 2:
+                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().lname;
+                        break;
+                    case 3:
+                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getComment();
+                        break;
+                }
+            }
+        }
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Maths", "0", "dsqd", "Aucune"},
-                {"Physique", "10", "rtezyrty", "Aucune"},
-                {"Chimie", "15", "khgjkjh", "Aucune"},
-                {"Info", "20", "nbvcnbn", "Aucune"}
-            },
+            Bulleti,
             new String [] {
                 "Matière", "Moyenne", "Enseignant", "Appréciation"
             }
@@ -643,6 +699,8 @@ public class Bulletins extends javax.swing.JFrame {
         );
 
         jTabbedPane2.addTab("3ème Trimestre", jPanel5);
+        
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
