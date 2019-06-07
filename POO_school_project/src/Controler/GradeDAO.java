@@ -34,7 +34,5 @@ public class GradeDAO extends DAO<Grade>{
                 Grade g = new Grade(rset.getDouble(2),rset.getString(3));
                 rd.getGrades().add(g);
             }
-        }
-        
-        
+        }       
 }

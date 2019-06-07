@@ -38,7 +38,5 @@ public class StudentDAO extends DAO<Student>{
                 s.display();
                 c.getStudents().add(s);
             }
-        }
-        
-        
+        }       
 }

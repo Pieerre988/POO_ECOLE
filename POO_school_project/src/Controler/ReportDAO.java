@@ -36,7 +36,5 @@ public class ReportDAO extends DAO<Report>{
                 rdDAO.init(c,s,r);
                 s.getReports().add(r);   
             }
-        }
-        
-        
+        }       
 }

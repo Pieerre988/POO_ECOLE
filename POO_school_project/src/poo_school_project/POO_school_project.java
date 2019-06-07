@@ -10,6 +10,7 @@ import java.util.*;
 import Model.*;
 import view.studentGraph;
 import Controler.*;
+
 /**
  *
  * @author Pierre
