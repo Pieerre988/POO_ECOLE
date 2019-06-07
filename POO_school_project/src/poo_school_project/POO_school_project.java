@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import view.Bulletins;
 import java.sql.*;
 import java.util.*;
-import view.Bulletins;
 import Model.*;
 /**
  *
