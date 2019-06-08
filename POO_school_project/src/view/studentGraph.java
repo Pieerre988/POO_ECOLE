@@ -5,6 +5,12 @@
  */
 package view;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
+
 /**
  *
  * @author Pierre
@@ -681,7 +687,22 @@ private void MyInitComponents() {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+           DefaultPieDataset dataset = new DefaultPieDataset( );
+      dataset.setValue("[0,5[", new Double( 20 ) );
+      dataset.setValue("[5,10[", new Double( 20 ) );
+      dataset.setValue("[10,15[", new Double( 40 ) );
+      dataset.setValue("[15,20]", new Double( 10 ) );
+
+      JFreeChart chart = ChartFactory.createPieChart(
+         "Répartion des moyennes",   // chart title
+         dataset,          // data
+         true,             // include legend
+         true,
+         true);
+         PiePlot P = (PiePlot)chart.getPlot();
+         ChartFrame frame = new ChartFrame("Pie Chart", chart);
+         frame.setVisible(true);
+         frame.setSize(450,500);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
