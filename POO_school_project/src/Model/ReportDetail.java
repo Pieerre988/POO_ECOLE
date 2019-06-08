@@ -39,7 +39,7 @@ public class ReportDetail {
     }
     public void display()
     {
-        System.out.println("----------------\nProfessor: "+this.professor.lname+" ("+this.professor.matter+")");
+        System.out.println("----------------\nProfessor: "+this.professor.getLname()+" ("+this.getProfessor().getMatter()+")");
         for(Grade temp: grades)
             temp.display();
         System.out.println("Moyenne: "+this.getMedium()+"\nOverall comment: "+this.comment);

@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -30,16 +30,23 @@ public class ReportDetailDAO extends DAO<ReportDetail>{
             return false;
         }
         
-        public void init(Classe c, Student s, Report r) throws SQLException
+        public void init(Ecole e, Classe c, Student s, Report r) throws SQLException
         {
-            Professor Bubulle = new Professor("Jean","Bubulle","Maths");
-            rset = stmt.executeQuery("SELECT db.* FROM detailbulletin db, bulletin b WHERE b.ID = "+r.getID()+" AND db.ID_bulletin = b.ID ");
+            Professor Bubulle = new Professor(1L,"Jean","Bubulle","Maths");
+            rset = stmt.executeQuery("SELECT db.id, p.id, db.appreciation FROM personne p, enseignement e, bulletin b, detailbulletin db WHERE b.ID = "+r.getID()+" AND db.ID_bulletin = b.ID AND db.ID_enseignement = e.ID AND e.ID_prof = p.ID ");
             while(rset.next())
             {
+                Professor prof = new Professor(1000L,"Dummy","Test","Janitor");
+                for(Professor temp:e.getProfesseurs())
+                {
+                    if(temp.getID()==rset.getLong(2))
+                        prof = temp;
+                }
                 //public ReportDetail(long id, Professor p, String c)
-                ReportDetail rd = new ReportDetail(rset.getLong(1), Bubulle, rset.getString(2));
+                ReportDetail rd = new ReportDetail(rset.getLong(1), prof, rset.getString(3));
                 GradeDAO gDAO = new GradeDAO();
-                gDAO.init(c,s,r,rd);
+                System.out.println("BULLETIN DETAIL");
+                gDAO.init(e,c,s,r,rd);
                 
                 r.getDetails().add(rd);   
             }

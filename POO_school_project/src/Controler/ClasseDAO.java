@@ -8,6 +8,8 @@ import Model.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,20 +22,24 @@ public class ClasseDAO extends DAO<Classe>{
         }
         
         @Override
-        public boolean create(Classe s)
+        public boolean create(Classe c)
         {
-            return false;
+            try {
+                stmt.executeQuery("INSERT INTO class(ID_annee,ID_niveau) VALUES ("+c.getAnnee_scolaire()+","+c.getNiveau()+")");
+            }catch (SQLException ex) {return true;}
+            return true;
         }
         
-        public void init(ArrayList<Classe> a) throws SQLException
+        public void init(Ecole e) throws SQLException
         {
-            rset = stmt.executeQuery("SELECT * FROM classe WHERE Id_annee = 1");
+            rset = stmt.executeQuery("SELECT * FROM classe WHERE ID_annee = 1");
             while(rset.next())
             {
                 Classe c = new Classe(rset.getLong(1),rset.getLong(2),rset.getString(3), "Test");
+                System.out.println("CLASSE");
                 StudentDAO sDAO = new StudentDAO();
-                sDAO.init(c);
-                a.add(c);   
+                sDAO.init(e,c);
+                e.getClasses().add(c);   
             }
         }
         

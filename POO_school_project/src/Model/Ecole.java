@@ -5,63 +5,37 @@
  */
 package Model;
 import java.util.*;
+import Model.*;
+import Controler.*;
+import java.sql.SQLException;
+
 /**
  *
  * @author talmo
  */
 public class Ecole {
-    private TreeMap<Integer,Report> tmreport;
-    private TreeMap<Integer,ReportDetail> tmreportdetail;
-    private TreeMap<Integer,Grade> tmgrade;
-    private TreeMap<Integer,Professor> tmprofessor;
-    private TreeMap<Integer,Report> tmstudent;
-
-    public Ecole(TreeMap<Integer, Report> tmreport, TreeMap<Integer, ReportDetail> tmreportdetail, TreeMap<Integer, Grade> tmgrade, TreeMap<Integer, Professor> tmprofessor, TreeMap<Integer, Report> tmstudent) {
-        this.tmreport = tmreport;
-        this.tmreportdetail = tmreportdetail;
-        this.tmgrade = tmgrade;
-        this.tmprofessor = tmprofessor;
-        this.tmstudent = tmstudent;
-    }
-
-    public TreeMap<Integer, Report> getTmreport() {
-        return tmreport;
-    }
-
-    public void setTmreport(TreeMap<Integer, Report> tmreport) {
-        this.tmreport = tmreport;
-    }
-
-    public TreeMap<Integer, ReportDetail> getTmreportdetail() {
-        return tmreportdetail;
-    }
-
-    public void setTmreportdetail(TreeMap<Integer, ReportDetail> tmreportdetail) {
-        this.tmreportdetail = tmreportdetail;
-    }
-
-    public TreeMap<Integer, Grade> getTmgrade() {
-        return tmgrade;
-    }
-
-    public void setTmgrade(TreeMap<Integer, Grade> tmgrade) {
-        this.tmgrade = tmgrade;
-    }
-
-    public TreeMap<Integer, Professor> getTmprofessor() {
-        return tmprofessor;
-    }
-
-    public void setTmprofessor(TreeMap<Integer, Professor> tmprofessor) {
-        this.tmprofessor = tmprofessor;
-    }
-
-    public TreeMap<Integer, Report> getTmstudent() {
-        return tmstudent;
-    }
-
-    public void setTmstudent(TreeMap<Integer, Report> tmstudent) {
-        this.tmstudent = tmstudent;
+    
+    private ArrayList<Classe> classes;
+    private ArrayList<Professor> professeurs;
+    
+    public Ecole() throws SQLException{
+        this.classes=new ArrayList<>();
+        this.professeurs=new ArrayList<>();
     }
     
+    public ArrayList<Classe> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(ArrayList<Classe> classes) {
+        this.classes = classes;
+    }
+
+    public ArrayList<Professor> getProfesseurs() {
+        return professeurs;
+    }
+
+    public void setProfesseurs(ArrayList<Professor> professeurs) {
+        this.professeurs = professeurs;
+    }
 }
