@@ -25,7 +25,7 @@ public class StudentDAO extends DAO<Student>{
             return false;
         }
         
-        public void init(Classe c) throws SQLException
+        public void init(Ecole e, Classe c) throws SQLException
         {
             ResultSet rs = null;
             rset = stmt.executeQuery("SELECT e.* FROM personne e, inscription i WHERE i.ID_classe = "+c.getID()+" AND e.ID = i.ID_eleve");
@@ -34,9 +34,12 @@ public class StudentDAO extends DAO<Student>{
                 System.out.println(c.getID());
                 Student s = new Student(rset.getLong(1),rset.getString(2),rset.getString(3));
                 ReportDAO rDAO = new ReportDAO();
-                rDAO.init(c,s);
+                System.out.println("STUDENT");
+                rDAO.init(e,c,s);
                 s.display();
                 c.getStudents().add(s);
             }
-        }       
+        }
+        
+        
 }

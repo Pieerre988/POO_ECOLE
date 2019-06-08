@@ -11,12 +11,57 @@ import java.util.*;
  * @author talmo
  */
 public class Professor {
-    public String fname, lname, matter;
-    public ArrayList<Class> classes;
-    public Professor(String fn,String ln,String m)
+    private long ID;
+    private String fname, lname, matter;
+    private ArrayList<Class> classes;
+    
+    public Professor(Long id, String fn,String ln,String m)
     {
+        this.ID = id;
         this.fname = fn;
         this.lname = ln;
         this.matter = m;
     }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+    
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    public String getMatter() {
+        return matter;
+    }
+
+    public void setMatter(String matter) {
+        this.matter = matter;
+    }
+
+    public ArrayList<Class> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(ArrayList<Class> classes) {
+        this.classes = classes;
+    }
+    
+    
 }
