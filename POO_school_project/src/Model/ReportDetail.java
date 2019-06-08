@@ -13,11 +13,14 @@ import java.util.*;
  * @author talmo
  */
 public class ReportDetail {
-    public ArrayList<Grade> grades;
-    public String comment;
-    public Professor professor;
-    public ReportDetail(Professor p, String c)
+    private long ID;
+    private ArrayList<Grade> grades;
+    private String comment;
+    private Professor professor;
+    
+    public ReportDetail(long id, Professor p, String c)
     {
+        this.ID=id;
         this.comment=c;
         this.professor=p;
         this.grades = new ArrayList<>();
@@ -27,7 +30,7 @@ public class ReportDetail {
     {
         double m=0;
         for(Grade temp: grades)
-            m+=temp.score;
+            m+=temp.getScore();
         return m/grades.size();
     }
     public void add(Grade g)
@@ -40,5 +43,37 @@ public class ReportDetail {
         for(Grade temp: grades)
             temp.display();
         System.out.println("Moyenne: "+this.getMedium()+"\nOverall comment: "+this.comment);
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public ArrayList<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(ArrayList<Grade> grades) {
+        this.grades = grades;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 }

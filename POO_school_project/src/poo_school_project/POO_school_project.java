@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package poo_school_project;
+import Controler.ClasseDAO;
 import view.connexion;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +12,11 @@ import view.Bulletins;
 import java.sql.*;
 import java.util.*;
 import Model.*;
+import Controler.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author Pierre
@@ -21,9 +27,8 @@ public class POO_school_project {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        ArrayList<String> alpha = null;
 
-        TreeMap<Long,Student> students = new TreeMap<>();
+        /*TreeMap<Long,Student> students = new TreeMap<>();
         try {
             ArrayList<String> x = new ArrayList<>();
             Connexion co = new Connexion("ecole","root","");
@@ -44,10 +49,10 @@ public class POO_school_project {
         
         }catch (ClassNotFoundException e) {System.err.println(e);} 
         catch (SQLException ex) {}
-        
+        */
         
         //Création de l'élève test
-        Student Eleve = new Student(1, "Adrien", "Talmont");
+        Student Eleve = new Student(2, "Adrien", "Talmont");/*
         
         //Création du bulletin test
         Report Bullet = new Report("1");
@@ -90,10 +95,15 @@ public class POO_school_project {
         Bullet.add(BulletProb);
         Bullet.add(BulletTs);
         Bullet.add(BulletJava);
+        */
         
         java.awt.EventQueue.invokeLater(() -> {
 
-            new Bulletins(Eleve, Bullet).setVisible(true);
+            try {
+                new Bulletins(Eleve, 1).setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(POO_school_project.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
         
     }

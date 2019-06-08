@@ -18,7 +18,7 @@ public class Student {
     
     public Student(){}
     
-    public Student(long ID, String fn, String ln)
+    public Student(long ID, String ln, String fn)
     {
         this.ID=ID;
         this.fname=fn;
