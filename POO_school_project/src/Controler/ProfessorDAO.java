@@ -15,31 +15,30 @@ import java.util.logging.Logger;
  *
  * @author talmo
  */
-public class ClasseDAO extends DAO<Classe>{
-        public ClasseDAO() throws SQLException
+public class ProfessorDAO extends DAO<Professor>{
+        public ProfessorDAO() throws SQLException
         {
             super();
         }
         
         @Override
-        public boolean create(Classe c)
+        public boolean create(Professor p)
         {
-            try {
+          /*  try {
                 stmt.executeQuery("INSERT INTO class(ID_annee,ID_niveau) VALUES ("+c.getAnnee_scolaire()+","+c.getNiveau()+")");
-            }catch (SQLException ex) {return true;}
+            }catch (SQLException ex) {return true;}*/
             return true;
         }
         
         public void init(Ecole e) throws SQLException
         {
-            rset = stmt.executeQuery("SELECT * FROM classe WHERE ID_annee = 1");
+            rset = stmt.executeQuery("SELECT p.ID, p.Prenom, p.Nom, d.Nom FROM personne p, enseignement e, discipline d WHERE p.type=1 AND e.ID_prof = p.ID AND d.ID = e.ID_discipline ");
             while(rset.next())
             {
-                Classe c = new Classe(rset.getLong(1),rset.getLong(2),rset.getString(3), "ING"+rset.getString(3));
-                System.out.println("CLASSE");
-                StudentDAO sDAO = new StudentDAO();
-                sDAO.init(e,c);
-                e.getClasses().add(c);   
+                //public Professor(Long ID,String fn,String ln,String m)
+                Professor p = new Professor(rset.getLong(1), rset.getString(2),rset.getString(3),rset.getString(4));
+                System.out.println("PROFESSOR");
+                e.getProfesseurs().add(p);
             }
         }
         

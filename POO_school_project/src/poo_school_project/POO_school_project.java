@@ -5,10 +5,9 @@
  */
 package poo_school_project;
 import Controler.ClasseDAO;
-import view.connexion;
+import view.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import view.Bulletins;
 import java.sql.*;
 import java.util.*;
 import Model.*;
@@ -51,59 +50,16 @@ public class POO_school_project {
         catch (SQLException ex) {}
         */
         
-        //Création de l'élève test
-        Student Eleve = new Student(2, "Adrien", "Talmont");/*
+        Ecole Ecole = new Ecole();
         
-        //Création du bulletin test
-        Report Bullet = new Report("1");
+        ClasseDAO DaoClasse = new ClasseDAO();
+        ProfessorDAO DaoProf = new ProfessorDAO();
         
-        //Création de 3 professeur pour 3 matières
-        Professor LeCor = new Professor("Luc","Le Cor","Proba");
-        Professor Mokber = new Professor("Arash", "Mokber", "TS2");
-        Professor Segado = new Professor("Jean-Pierre", "Segado", "Java");
-        
-        //Création des 3 Detailbulletins
-        ReportDetail BulletProb = new ReportDetail(LeCor, "Moyen");
-        ReportDetail BulletTs = new ReportDetail(Mokber, "Très bien");
-        ReportDetail BulletJava = new ReportDetail(Segado, "Mauvais");
-        
-        //2 Evaluation en Proba
-        Grade ProbaDS1 = new Grade(10, "");
-        Grade ProbaDS2 = new Grade(15, "");
-        
-        //2 Evaluation en TS
-        Grade TSDS1 = new Grade(10, "");
-        Grade TSDS2 = new Grade(20, "");
-        
-        //2 Evalution en Java
-        Grade JavaDS1 = new Grade(5, "");
-        Grade JavaDS2 = new Grade(9, "");
-        
-        //Ajout des Eval en Proba
-        BulletProb.add(ProbaDS1);
-        BulletProb.add(ProbaDS2);
-        
-        //Ajout des Eval en TS
-        BulletTs.add(TSDS1);
-        BulletTs.add(TSDS2);
-        
-        //Ajout des Eval en Java
-        BulletJava.add(JavaDS1);
-        BulletJava.add(JavaDS2);
-        
-        //Ajout des DetailBulletins dans le bulletin
-        Bullet.add(BulletProb);
-        Bullet.add(BulletTs);
-        Bullet.add(BulletJava);
-        */
-        
-        java.awt.EventQueue.invokeLater(() -> {
+        DaoClasse.init(Ecole);
+        DaoProf.init(Ecole);
 
-            try {
-                new Bulletins(Eleve, 1).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(POO_school_project.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new connexion(Ecole).setVisible(true);
         });
         
     }
