@@ -642,7 +642,6 @@ public class studentGraph extends javax.swing.JFrame {
         jButton7.setText("Voir bulletin(s)");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dispose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         if(Eleve != null){

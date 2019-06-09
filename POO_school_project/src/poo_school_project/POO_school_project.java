@@ -59,7 +59,7 @@ public class POO_school_project {
         DaoProf.init(Ecole);
 
         java.awt.EventQueue.invokeLater(() -> {
-            new clsseGraph(Ecole).setVisible(true);
+            new connexion(Ecole).setVisible(true);
         });
         
     }
