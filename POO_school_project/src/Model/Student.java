@@ -25,6 +25,18 @@ public class Student {
         this.lname=ln;
         reports=new ArrayList<>();
     }
+    
+    public double getAverageYear(){
+        double avg=0;
+        int count=0;
+        for(Report r : this.getReports()){
+            avg+=r.getMedium();
+            count++;
+        }
+        avg/=count;
+        return avg;
+    }
+    
     public void add(Report r)
     {
         this.reports.add(r);

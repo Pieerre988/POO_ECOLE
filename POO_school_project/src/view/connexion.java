@@ -37,7 +37,7 @@ public class connexion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        dbText = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,9 +61,10 @@ public class connexion extends javax.swing.JFrame {
 
         jLabel2.setText("Pass Word :");
 
-        dbText.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Etudiant", "Enseignant", "Classe" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dbTextActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -89,23 +90,21 @@ public class connexion extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dbText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(idText, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(39, 39, 39))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(84, 84, 84)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dbText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGap(8, 8, 8)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,6 +153,7 @@ public class connexion extends javax.swing.JFrame {
 
     private void MyinitComponents(Ecole School) {
 
+        
         jPanel1 = new javax.swing.JPanel();
         idText = new javax.swing.JTextField();
         pwText = new javax.swing.JPasswordField();
@@ -161,21 +161,46 @@ public class connexion extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        dbText = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        idText.addActionListener((java.awt.event.ActionEvent evt) -> {
-            idTextActionPerformed(evt);
+        idText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idTextActionPerformed(evt);
+            }
         });
 
         jButton1.setText("GO FOR IT MY MAN");
-        jButton1.addActionListener((java.awt.event.ActionEvent evt) -> {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            
+            String lecture = jComboBox1.getSelectedItem().toString();
+           // System.out.println(lecture); //test : récupère bien la valeur du jcombobox*
+           System.out.println(pwText.getPassword());
+           if("root".equals(idText.getText())){
             dispose();
-            java.awt.EventQueue.invokeLater(() -> {
-                new studentGraph(School).setVisible(true);
-            });
+            switch(lecture){
+                case "Etudiant" :
+                 java.awt.EventQueue.invokeLater(() -> {
+                 new studentGraph(School).setVisible(true);
+                 }); 
+                 break;
+                case "Enseignant":
+                 java.awt.EventQueue.invokeLater(() -> {
+                 new enseignantGraph(School).setVisible(true);
+                 }); 
+                 break; 
+                case "Classe":
+                 java.awt.EventQueue.invokeLater(() -> {
+                 new clsseGraph(School).setVisible(true);
+                 }); 
+                 break; 
+             }// end switch
+           }//end if
+          }
         });
 
         jLabel1.setText("DB NAME :");
@@ -184,9 +209,10 @@ public class connexion extends javax.swing.JFrame {
 
         jLabel2.setText("Pass Word :");
 
-        dbText.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Etudiant", "Enseignant", "Classe" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dbTextActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -212,23 +238,21 @@ public class connexion extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dbText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(idText, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(39, 39, 39))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(84, 84, 84)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(dbText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGap(8, 8, 8)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idText, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -283,9 +307,9 @@ public class connexion extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_idTextActionPerformed
 
-    private void dbTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbTextActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_dbTextActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,9 +317,9 @@ public class connexion extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField dbText;
     private javax.swing.JTextField idText;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

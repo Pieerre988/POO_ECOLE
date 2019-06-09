@@ -24,7 +24,16 @@ public class Classe {
         this.nom=name;
         this.annee_scolaire=as;
     }
-
+    public double getAverageYearClasse(){
+        double avg=0;
+        int count=0;
+        for(Student e : this.getStudents()){
+            avg+=e.getAverageYear();
+            count++;
+        }
+        avg/=count;
+        return avg;
+    }
     public String getNiveau() {
         return niveau;
     }

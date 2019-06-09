@@ -13,7 +13,7 @@ import java.util.*;
 public class Professor {
     private long ID;
     private String fname, lname, matter;
-    private ArrayList<Class> classes;
+    private ArrayList<Classe> classes;
     
     public Professor(Long id, String fn,String ln,String m)
     {
@@ -55,11 +55,11 @@ public class Professor {
         this.matter = matter;
     }
 
-    public ArrayList<Class> getClasses() {
+    public ArrayList<Classe> getClasses() {
         return classes;
     }
 
-    public void setClasses(ArrayList<Class> classes) {
+    public void setClasses(ArrayList<Classe> classes) {
         this.classes = classes;
     }
     

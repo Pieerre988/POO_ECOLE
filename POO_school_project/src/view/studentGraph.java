@@ -7,12 +7,18 @@ package view;
 
 import Controler.*;
 import Model.*;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -66,7 +72,7 @@ public class studentGraph extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -292,8 +298,6 @@ public class studentGraph extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Selectionner année");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,7 +314,7 @@ public class studentGraph extends javax.swing.JFrame {
                         .addGap(502, 502, 502)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
@@ -329,7 +333,7 @@ public class studentGraph extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -436,7 +440,7 @@ public class studentGraph extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jSpinner1 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -575,7 +579,7 @@ public class studentGraph extends javax.swing.JFrame {
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 int id_e = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
-                int annee = Integer.parseInt(jComboBox2.getSelectedItem().toString());
+                int annee = Integer.parseInt(jSpinner1.getValue().toString());
                 for(Classe ClasseEleve : classes){
                     if(ClasseEleve.getAnnee_scolaire() == annee){
                         for(Student Ele : ClasseEleve.getStudents()){
@@ -609,7 +613,55 @@ public class studentGraph extends javax.swing.JFrame {
         jButton3.setText("Statistique");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+        int moy1=0;
+        int moy2=0;
+        int moy3=0;
+        int moy4=0;
+        int anneeSelect = (Integer) jSpinner1.getValue();
+        ArrayList<Student> Arr1 = new ArrayList();
+                    
+        for(Classe c : School.getClasses()){//on parcours tte les classes du tableau
+            if(c.getAnnee_scolaire()==anneeSelect){//on vérifie que leur année correspond bien à celle sélectionner
+                for(Student etu : c.getStudents()){//on ajoute tous les etudiant de cette classe à Arr1
+                    Arr1.add(etu);
+                }
+            }
+        }     
+
+        //Séparer les étudiants de Arr1 en 4 catégogies en fct de leur moy
+
+
+        double moyObserv = 0;
+        for(Student etu : Arr1){
+            moyObserv = etu.getAverageYear();
+            System.out.println(moyObserv);
+            System.out.println(moyObserv);
+            if(moyObserv<5)
+                moy1++;
+            else if(moyObserv>=5 && moyObserv<10)
+                moy2++;
+            else if(moyObserv>=10 && moyObserv<15)
+                moy3++;
+            else
+                moy4++;
+        }
+
+        DefaultPieDataset dataset = new DefaultPieDataset( );
+        dataset.setValue("[0,5[", new Integer( moy1 ) );
+        dataset.setValue("[5,10[", new Integer( moy2 ) );
+        dataset.setValue("[10,15[", new Integer( moy3 ) );
+        dataset.setValue("[15,20]", new Integer( moy4 ) );
+
+        JFreeChart chart = ChartFactory.createPieChart(
+                "Répartion des moyennes",   // chart title
+                dataset,          // data
+                true,             // include legend
+                true,
+                true);
+            PiePlot P = (PiePlot)chart.getPlot();
+            ChartFrame frame = new ChartFrame("Pie Chart", chart);
+            frame.setVisible(true);
+            frame.setSize(450,500);
             }
         });
 
@@ -640,20 +692,16 @@ public class studentGraph extends javax.swing.JFrame {
         ///Bouton envoyant sur les bulletins d'une année d'un élève sélectionné
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton7.setText("Voir bulletin(s)");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        if(Eleve != null){
-                            try {
-                                new Bulletins(Eleve, Integer.parseInt(jComboBox2.getSelectedItem().toString()), School).setVisible(true);
-                            } catch (SQLException ex) {
-                                Logger.getLogger(studentGraph.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
+        jButton7.addActionListener((java.awt.event.ActionEvent evt) -> {
+            java.awt.EventQueue.invokeLater(() -> {
+                if(Eleve != null){
+                    try {
+                        new Bulletins(Eleve, Integer.parseInt(jSpinner1.getValue().toString()), School).setVisible(true);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(studentGraph.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                });
-            }
+                }
+            });
         });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -711,8 +759,6 @@ public class studentGraph extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Selectionner année");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -729,7 +775,7 @@ public class studentGraph extends javax.swing.JFrame {
                         .addGap(502, 502, 502)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
@@ -748,7 +794,7 @@ public class studentGraph extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -774,7 +820,6 @@ public class studentGraph extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -784,6 +829,7 @@ public class studentGraph extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;

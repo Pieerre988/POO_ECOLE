@@ -9,6 +9,11 @@ import Model.*;
 import java.util.ArrayList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -488,10 +493,55 @@ public class enseignantGraph extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton3.setText("Statistique");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
+        jButton3.addActionListener((java.awt.event.ActionEvent evt) -> {
+            int moy1=16;
+            int moy2=23;
+            int moy3=15;
+            int moy4=12;
+            /*int anneeSelect = (Integer) jSpinner1.getValue();
+            double avg=0;
+            int count = 0;
+            double moyObserv = 0;
+            ArrayList<long> Arr1 = new ArrayList();
+            
+            for(Professor p : School.getProfesseurs()){
+                for(long c : p.getID()){//on parcours tte les classes du tableau
+                    if(c==anneeSelect)//on vérifie que leur année correspond bien à celle sélectionner
+                        Arr1.add(c);
+                }
+                for(Classe cu : Arr1){
+                    avg+=cu.getAverageYearClasse();
+                    count++;
+                }
+                moyObserv = avg / count;
+                if(moyObserv<5)
+                    moy1++;
+                else if(moyObserv>=5 && moyObserv<10)
+                    moy2++;
+                else if(moyObserv>=10 && moyObserv<15)
+                    moy3++;
+                else
+                    moy4++;
+                avg = 0;
+                count = 0;
+            }*/
+            
+            DefaultPieDataset dataset = new DefaultPieDataset( );
+            dataset.setValue("[0,5[", new Integer( moy1 ) );
+            dataset.setValue("[5,10[", new Integer( moy2 ) );
+            dataset.setValue("[10,15[", new Integer( moy3 ) );
+            dataset.setValue("[15,20]", new Integer( moy4 ) );
+            
+            JFreeChart chart = ChartFactory.createPieChart(
+                    "Répartion des moyennes",   // chart title
+                    dataset,          // data
+                    true,             // include legend
+                    true,
+                    true);
+            PiePlot P = (PiePlot)chart.getPlot();
+            ChartFrame frame = new ChartFrame("Pie Chart", chart);
+            frame.setVisible(true);
+            frame.setSize(450,500);
         });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
