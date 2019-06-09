@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package Model;
+import Controler.ProfessorDAO;
+import Controler.StudentDAO;
 import Model.Report;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -84,6 +87,14 @@ public class Student {
 
     public void setReports(ArrayList<Report> reports) {
         this.reports = reports;
+    }
+    
+     public void updateName(String fn, String ln) throws SQLException
+    {
+        this.fname=fn;
+        this.lname=ln;
+        StudentDAO pDAO = new StudentDAO(); 
+        pDAO.updateNomBDD(this, fn, ln);
     }
     
 }

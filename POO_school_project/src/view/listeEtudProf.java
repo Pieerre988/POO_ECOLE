@@ -17,8 +17,8 @@ public class listeEtudProf extends javax.swing.JFrame {
     /**
      * Creates new form listeEtudProf
      */
-    public listeEtudProf(Ecole School) {
-        MyinitComponents(School);
+    public listeEtudProf() {
+        initComponents();
     }
 
     /**

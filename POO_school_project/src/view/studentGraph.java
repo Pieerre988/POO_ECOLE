@@ -605,7 +605,19 @@ public class studentGraph extends javax.swing.JFrame {
         jButton2.setText("Modifier");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+            int id_e = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                //int annee = Integer.parseInt(jSpinner1.getValue().toString());
+                for(Classe ClasseEleve : classes){
+                        for(Student Ele : ClasseEleve.getStudents()){
+                            if (Ele.getID() == id_e){
+                                try {
+                                    Ele.updateName(jTextField2.getText(), jTextField3.getText());
+                                } catch (SQLException ex) {
+                                    Logger.getLogger(studentGraph.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        }
+                }
             }
         });
 

@@ -537,10 +537,10 @@ public class clsseGraph extends javax.swing.JFrame {
         jButton7.setText("Voir la liste étudiants et profs");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dispose();
+               dispose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new listeEtudProf(School).setVisible(true);
+                        new listeEtudProf().setVisible(true);
                     }
                 });
             }

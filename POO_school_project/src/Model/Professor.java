@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Model;
+import Controler.ProfessorDAO;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -63,5 +65,12 @@ public class Professor {
         this.classes = classes;
     }
     
+    public void updateName(String fn, String ln) throws SQLException
+    {
+        this.fname=fn;
+        this.lname=ln;
+        ProfessorDAO pDAO = new ProfessorDAO(); 
+        pDAO.updateNomBDD(this, fn, ln);
+    }
     
 }

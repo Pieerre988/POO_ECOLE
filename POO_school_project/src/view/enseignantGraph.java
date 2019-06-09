@@ -6,7 +6,10 @@
 package view;
 
 import Model.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jfree.chart.ChartFactory;
@@ -487,7 +490,16 @@ public class enseignantGraph extends javax.swing.JFrame {
         jButton2.setText("Modifier");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                int id_e = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                int annee = Integer.parseInt(jSpinner1.getValue().toString());
+                for(Professor p: School.getProfesseurs()){
+                            if (p.getID() == id_e)
+                                try {
+                                    p.updateName(jTextField2.getText(), jTextField1.getText());
+                            } catch (SQLException ex) {
+                                Logger.getLogger(enseignantGraph.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                }
             }
         });
 
@@ -569,17 +581,18 @@ public class enseignantGraph extends javax.swing.JFrame {
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton7.setText("voir liste classe");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dispose();
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        if(Professeur != null){
-                            new listClsse(School).setVisible(true);
-                        }
-                    }
-                });
+        jButton7.addActionListener((java.awt.event.ActionEvent evt) -> {
+            dispose();
+            java.awt.EventQueue.invokeLater(() -> {
+                new listClsse().setVisible(true);
+            });
+            /*java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            if(Professeur != null){
+            new listClsse(School).setVisible(true);
             }
+            }
+            });*/
         });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -724,7 +737,7 @@ public class enseignantGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

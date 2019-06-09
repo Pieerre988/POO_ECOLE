@@ -42,4 +42,15 @@ public class StudentDAO extends DAO<Student>{
         }
         
         
+        public void updateNomBDD(Student s, String fn, String ln)
+        {
+            try {
+                System.out.println(s.getID());
+                
+                System.out.println(fn+" "+ln);
+                stmt.executeUpdate("UPDATE personne SET Nom = '"+ln+"', Prenom = '"+fn+"' WHERE ID = "+s.getID());
+            }catch (SQLException ex) {System.out.println("OOOOO\nOOOOO\nOOOOO");}
+        }
+        
+        
 }

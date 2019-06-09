@@ -42,5 +42,13 @@ public class ProfessorDAO extends DAO<Professor>{
             }
         }
         
-        
+        public void updateNomBDD(Professor p, String fn, String ln)
+        {
+            try {
+                System.out.println(p.getID());
+                
+                System.out.println(fn+" "+ln);
+                stmt.executeUpdate("UPDATE personne SET Nom = '"+ln+"', Prenom = '"+fn+"' WHERE ID = "+p.getID());
+            }catch (SQLException ex) {System.out.println("OOOOO\nOOOOO\nOOOOO");}
+        }     
 }
