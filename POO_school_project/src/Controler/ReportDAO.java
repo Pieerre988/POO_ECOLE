@@ -25,15 +25,16 @@ public class ReportDAO extends DAO<Report>{
             return false;
         }
         
-        public void init(Classe c, Student s) throws SQLException
+        public void init(Ecole e, Classe c, Student s) throws SQLException
         {
-            rset = stmt.executeQuery("SELECT b.* FROM bulletin b, inscription i WHERE i.ID_classe = "+c.getID()+" AND b.ID_inscription = i.ID");
+            rset = stmt.executeQuery("SELECT b.* FROM bulletin b, inscription i WHERE i.ID_classe = "+c.getID()+" AND b.ID_inscription = i.ID AND b.ID_inscription = "+s.getID());
             while(rset.next())
             {
                 //private Report(String c, long t)
                 Report r = new Report(rset.getLong(1), rset.getString(2), rset.getLong(3));
                 ReportDetailDAO rdDAO = new ReportDetailDAO();
-                rdDAO.init(c,s,r);
+                System.out.println("BULLETIN");
+                rdDAO.init(e,c,s,r);
                 s.getReports().add(r);   
             }
         }

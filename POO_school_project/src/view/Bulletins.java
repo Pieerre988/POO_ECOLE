@@ -6,6 +6,7 @@
 package view;
 import Model.*;
 import Controler.*;
+import java.awt.event.WindowAdapter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,31 +25,8 @@ public class Bulletins extends javax.swing.JFrame {
     /**
      * Creates new form bulletins
      */
-    public Bulletins(Student Eleve, int annee) throws SQLException {
-        
-        ArrayList<Classe> classes = new ArrayList<>();
-        
-        ClasseDAO DaoClasse = new ClasseDAO();
-        
-        DaoClasse.init(classes);
-        
-        ArrayList<Report> Bulletin = new ArrayList<>();
-        
-        for(Classe c : classes){
-            if(c.getAnnee_scolaire() == annee){
-                for (Student s : c.getStudents()){
-                    if(s.getID() == Eleve.getID()){
-                        Bulletin = s.getReports();
-                    }
-                }
-            }
-        }
-        
-        MyinitComponents(Eleve, Bulletin);        
-    }
-
-    private Bulletins() {
-        initComponents();
+    public Bulletins(Student Eleve, int annee, Ecole School) throws SQLException {
+        MyinitComponents(Eleve, annee, School);     
     }
 
     /**
@@ -377,8 +355,21 @@ public class Bulletins extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     @SuppressWarnings("empty-statement")
-    private void MyinitComponents(Student Eleve, ArrayList<Report> Bulletin) {
-
+    private void MyinitComponents(Student Eleve, int annee, Ecole School) {
+        
+        ArrayList<Report> Bulletin = new ArrayList<>();
+        ArrayList<Classe> classes = School.getClasses();
+        
+        for(Classe c : classes){
+            if(c.getAnnee_scolaire() == annee){
+                for(Student s : c.getStudents()){
+                    System.out.println(s.getID());
+                    if(s.getID() == Eleve.getID()){
+                        Bulletin = s.getReports();
+                    }
+                }
+            }
+        }
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -409,7 +400,8 @@ public class Bulletins extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
+        
+        ///Affichage Trimestre 1
         jLabel1.setText("Nom :");
 
         jLabel2.setText("Prénom :");
@@ -428,13 +420,13 @@ public class Bulletins extends javax.swing.JFrame {
             for(int j = 0; j < 4; j++){
                 switch(j){
                     case 0:
-                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().matter;
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().getMatter();
                         break;
                     case 1:
                         Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getMedium();
                         break;
                     case 2:
-                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().lname;
+                        Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getProfessor().getLname();
                         break;
                     case 3:
                         Bulleti[i][j] = Bulletin.get(0).getDetails().get(i).getComment();
@@ -506,201 +498,201 @@ public class Bulletins extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("1er Trimestre", jPanel1);
         
-        if (Bulletin.size() == 2){
         
-        jLabel7.setText("Nom :");
+        if(Bulletin.size() >=2 ){
+            
+            jLabel7.setText("Nom :");
 
-        jLabel8.setText("Prénom :");
+            jLabel8.setText("Prénom :");
 
-        jLabel9.setText("ID :");
+            jLabel9.setText("ID :");
 
-        jLabel10.setText(Eleve.getLname());
+            jLabel10.setText(Eleve.getLname());
 
-        jLabel11.setText(Eleve.getFname());
+            jLabel11.setText(Eleve.getFname());
 
-        jLabel12.setText(Integer.toString((int)Eleve.getID()));
-        
-        for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
-            for(int j = 0; j < 4; j++){
-                switch(j){
-                    case 0:
-                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().matter;
-                        break;
-                    case 1:
-                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getMedium();
-                        break;
-                    case 2:
-                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().lname;
-                        break;
-                    case 3:
-                        Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getComment();
-                        break;
+            jLabel12.setText(Integer.toString((int)Eleve.getID()));
+
+            for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
+                for(int j = 0; j < 4; j++){
+                    switch(j){
+                        case 0:
+                            Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().getMatter();
+                            break;
+                        case 1:
+                            Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getMedium();
+                            break;
+                        case 2:
+                            Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getProfessor().getLname();
+                            break;
+                        case 3:
+                            Bulleti[i][j] = Bulletin.get(1).getDetails().get(i).getComment();
+                            break;
+                    }
                 }
             }
-        }
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            Bulleti,
-            new String [] {
-                "Matière", "Moyenne", "Enseignant", "Appréciation"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, false
-            };
+            jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                Bulleti,
+                new String [] {
+                    "Matière", "Moyenne", "Enseignant", "Appréciation"
+                }
+            ) {
+                boolean[] canEdit = new boolean [] {
+                    false, true, true, false
+                };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable2);
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+            jScrollPane2.setViewportView(jTable2);
         
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel10))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel11))))
-                        .addGap(0, 282, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel12))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
+            javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+            jPanel4.setLayout(jPanel4Layout);
+            jPanel4Layout.setHorizontalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jLabel10))
+                                .addGroup(jPanel4Layout.createSequentialGroup()
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel11))))
+                            .addGap(0, 282, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
+            jPanel4Layout.setVerticalGroup(
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel10))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel11))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel12))
+                    .addGap(27, 27, 27)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(65, Short.MAX_VALUE))
+            );
 
-        jTabbedPane2.addTab("2ème Trimestre", jPanel4);
-        
+            jTabbedPane2.addTab("2ème Trimestre", jPanel4);
         }
         
         if(Bulletin.size() == 3){
             
-        jLabel13.setText("Nom :");
+            jLabel13.setText("Nom :");
 
-        jLabel14.setText("Prénom :");
+            jLabel14.setText("Prénom :");
 
-        jLabel15.setText("ID :");
+            jLabel15.setText("ID :");
 
-        jLabel16.setText(Eleve.getLname());
+            jLabel16.setText(Eleve.getLname());
 
-        jLabel17.setText(Eleve.getFname());
+            jLabel17.setText(Eleve.getFname());
 
-        jLabel18.setText(Integer.toString((int)Eleve.getID()));
-        
-        for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
-            for(int j = 0; j < 4; j++){
-                switch(j){
-                    case 0:
-                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().matter;
-                        break;
-                    case 1:
-                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getMedium();
-                        break;
-                    case 2:
-                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().lname;
-                        break;
-                    case 3:
-                        Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getComment();
-                        break;
+            jLabel18.setText(Integer.toString((int)Eleve.getID()));
+
+            for(int i = 0; i < Bulletin.get(0).getDetails().size(); i++){
+                for(int j = 0; j < 4; j++){
+                    switch(j){
+                        case 0:
+                            Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().getMatter();
+                            break;
+                        case 1:
+                            Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getMedium();
+                            break;
+                        case 2:
+                            Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getProfessor().getLname();
+                            break;
+                        case 3:
+                            Bulleti[i][j] = Bulletin.get(2).getDetails().get(i).getComment();
+                            break;
+                    }
                 }
             }
+
+            jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                Bulleti,
+                new String [] {
+                    "Matière", "Moyenne", "Enseignant", "Appréciation"
+                }
+            ) {
+                boolean[] canEdit = new boolean [] {
+                    false, true, true, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+            jScrollPane3.setViewportView(jTable3);
+
+            javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+            jPanel5.setLayout(jPanel5Layout);
+            jPanel5Layout.setHorizontalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(jLabel16))
+                                .addGroup(jPanel5Layout.createSequentialGroup()
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel15))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel18)
+                                        .addComponent(jLabel17))))
+                            .addGap(0, 282, Short.MAX_VALUE)))
+                    .addContainerGap())
+            );
+            jPanel5Layout.setVerticalGroup(
+                jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel13)
+                        .addComponent(jLabel16))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel17))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel18))
+                    .addGap(27, 27, 27)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(65, Short.MAX_VALUE))
+            );
+
+            jTabbedPane2.addTab("3ème Trimestre", jPanel5);
         }
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            Bulleti,
-            new String [] {
-                "Matière", "Moyenne", "Enseignant", "Appréciation"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(jTable3);
         
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel13)
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel16))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel14)
-                                    .addComponent(jLabel15))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18)
-                                    .addComponent(jLabel17))))
-                        .addGap(0, 282, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel18))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-
-        jTabbedPane2.addTab("3ème Trimestre", jPanel5);
-        
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -729,38 +721,6 @@ public class Bulletins extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Bulletins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Bulletins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Bulletins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Bulletins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Bulletins().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
