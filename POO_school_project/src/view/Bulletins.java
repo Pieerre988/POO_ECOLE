@@ -26,7 +26,7 @@ public class Bulletins extends javax.swing.JFrame {
      * Creates new form bulletins
      */
     public Bulletins(Student Eleve, int annee, Ecole School) throws SQLException {
-        MyinitComponents(Eleve, annee, School);
+        MyinitComponents(Eleve, annee, School);     
     }
 
     /**
@@ -411,7 +411,7 @@ public class Bulletins extends javax.swing.JFrame {
         jLabel4.setText(Eleve.getLname());
 
         jLabel5.setText(Eleve.getFname());
-
+        
         jLabel6.setText(Integer.toString((int)Eleve.getID()));
         
         Object[][] Bulleti = new Object[Bulletin.get(0).getDetails().size()][4];
@@ -692,6 +692,7 @@ public class Bulletins extends javax.swing.JFrame {
 
             jTabbedPane2.addTab("3ème Trimestre", jPanel5);
         }
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

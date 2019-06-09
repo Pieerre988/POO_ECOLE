@@ -4,12 +4,6 @@
  * and open the template in the editor.
  */
 package poo_school_project;
-import view.*;
-import java.sql.*;
-import java.util.*;
-import Model.*;
-import view.studentGraph;
-import Controler.*;
 import Controler.ClasseDAO;
 import view.*;
 import java.sql.SQLException;
@@ -21,6 +15,7 @@ import Controler.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 /**
  *
  * @author Pierre
@@ -31,6 +26,7 @@ public class POO_school_project {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
+
         /*TreeMap<Long,Student> students = new TreeMap<>();
         try {
             ArrayList<String> x = new ArrayList<>();
@@ -64,7 +60,6 @@ public class POO_school_project {
 
         java.awt.EventQueue.invokeLater(() -> {
             new connexion(Ecole).setVisible(true);
-
         });
         
     }
