@@ -166,10 +166,8 @@ public class connexion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        idText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextActionPerformed(evt);
-            }
+        idText.addActionListener((java.awt.event.ActionEvent evt) -> {
+            idTextActionPerformed(evt);
         });
 
         jButton1.setText("GO FOR IT MY MAN");
