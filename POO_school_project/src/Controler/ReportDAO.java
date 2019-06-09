@@ -27,9 +27,7 @@ public class ReportDAO extends DAO<Report>{
         
         public void init(Ecole e, Classe c, Student s) throws SQLException
         {
-
             rset = stmt.executeQuery("SELECT b.* FROM bulletin b, inscription i WHERE i.ID_classe = "+c.getID()+" AND b.ID_inscription = i.ID AND b.ID_inscription = "+s.getID());
-
             while(rset.next())
             {
                 //private Report(String c, long t)

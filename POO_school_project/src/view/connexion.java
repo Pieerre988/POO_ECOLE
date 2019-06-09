@@ -171,13 +171,11 @@ public class connexion extends javax.swing.JFrame {
         });
 
         jButton1.setText("GO FOR IT MY MAN");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dispose();
-                java.awt.EventQueue.invokeLater(() -> {
-                    new studentGraph(School).setVisible(true);
-                });
-            }
+        jButton1.addActionListener((java.awt.event.ActionEvent evt) -> {
+            dispose();
+            java.awt.EventQueue.invokeLater(() -> {
+                new studentGraph(School).setVisible(true);
+            });
         });
 
         jLabel1.setText("DB NAME :");
