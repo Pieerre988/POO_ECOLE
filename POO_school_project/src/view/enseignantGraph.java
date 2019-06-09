@@ -7,13 +7,16 @@ package view;
 
 import Model.*;
 import java.util.ArrayList;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
  * @author Pierre
  */
 public class enseignantGraph extends javax.swing.JFrame {
-
+    
+    private Professor Professeur = null;
     /**
      * Creates new form enseignantGraph
      */
@@ -132,17 +135,17 @@ public class enseignantGraph extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "n°inscription", "Prénom", "Nom", "nom classe", "niv classe"
+                "n°inscription", "Prénom", "Nom", "Discipline"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -308,7 +311,7 @@ public class enseignantGraph extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MyinitComponents(Ecole School) {
-
+        
         jPanel1 = new javax.swing.JPanel();
         jSpinner1 = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
@@ -413,20 +416,41 @@ public class enseignantGraph extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(99, Short.MAX_VALUE))
         );
+        
+        
+        ArrayList<Professor> Profs = School.getProfesseurs();
+        ArrayList<ArrayList<String>> ProfEcole = new ArrayList<ArrayList<String>>();
+        ArrayList<String> DonneeProf = new ArrayList<String>();
+        
+        for(Professor Prof : Profs){
+                DonneeProf.add(Integer.toString((int)Prof.getID()));
+                DonneeProf.add(Prof.getFname());
+                DonneeProf.add(Prof.getLname());
+                DonneeProf.add(Prof.getMatter());
+                ProfEcole.add((ArrayList<String>) DonneeProf.clone());
+                DonneeProf.clear();
+        }
+        
+        Object[][] ProfGraph = null;
+        
+        if(ProfEcole.size() > 0){
+            ProfGraph = new Object [ProfEcole.size()][4];
+        }
+        
+        for(int i = 0; i < ProfEcole.size(); i++){
+            for(int j = 0; j < 4; j++){
+                ProfGraph[i][j] = ProfEcole.get(i).get(j);
+            }
+        }
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
+            ProfGraph,
             new String [] {
-                "n°inscription", "Prénom", "Nom", "nom classe", "niv classe"
+                "n°inscription", "Prénom", "Nom", "Discipline"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -434,6 +458,17 @@ public class enseignantGraph extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        
+        jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                int id_p = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+                for(Professor Prof : Profs){
+                    if (Prof.getID() == id_p){
+                            Professeur = Prof;
+                    }
+                }
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jButton1.setText("Ajouter");
@@ -486,7 +521,14 @@ public class enseignantGraph extends javax.swing.JFrame {
         jButton7.setText("voir liste classe");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                dispose();
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        if(Professeur != null){
+                            new listClsse(School).setVisible(true);
+                        }
+                    }
+                });
             }
         });
 

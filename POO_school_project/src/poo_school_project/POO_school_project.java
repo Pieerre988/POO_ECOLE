@@ -5,13 +5,11 @@
  */
 package poo_school_project;
 import Controler.ClasseDAO;
-import view.connexion;
+import view.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import view.Bulletins;
 import java.sql.*;
 import java.util.*;
-import view.Bulletins;
 import Model.*;
 import Controler.*;
 import java.util.logging.Level;
@@ -55,11 +53,13 @@ public class POO_school_project {
         Ecole Ecole = new Ecole();
         
         ClasseDAO DaoClasse = new ClasseDAO();
+        ProfessorDAO DaoProf = new ProfessorDAO();
         
         DaoClasse.init(Ecole);
+        DaoProf.init(Ecole);
 
         java.awt.EventQueue.invokeLater(() -> {
-            new connexion(Ecole).setVisible(true);
+            new clsseGraph(Ecole).setVisible(true);
         });
         
     }

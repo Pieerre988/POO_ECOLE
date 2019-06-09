@@ -406,7 +406,7 @@ public class studentGraph extends javax.swing.JFrame {
                 DonneeEleve.add(Integer.toString((int)eleve.getID()));
                 DonneeEleve.add(eleve.getFname());
                 DonneeEleve.add(eleve.getLname());
-                DonneeEleve.add("ING " + cla.getNiveau());
+                DonneeEleve.add(cla.getNom());
                 DonneeEleve.add(cla.getNiveau());
                 EleveEcole.add((ArrayList<String>) DonneeEleve.clone());
                 DonneeEleve.clear();
@@ -447,10 +447,10 @@ public class studentGraph extends javax.swing.JFrame {
         jLabel2.setText("Prénom");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("nom classe ");
+        jLabel3.setText("Nom Classe ");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("nom");
+        jLabel4.setText("Nom");
 
         jTextField1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -481,7 +481,7 @@ public class studentGraph extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel5.setText("niv classe ");
+        jLabel5.setText("Niv Classe ");
 
         jTextField5.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
@@ -554,7 +554,7 @@ public class studentGraph extends javax.swing.JFrame {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             StudentGrap,
             new String [] {
-                "n°inscription", "Prénom", "Nom", "nom classe", "niv classe"
+                "n°inscription", "Prénom", "Nom", "Nom Classe", "Niv Classe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -639,7 +639,7 @@ public class studentGraph extends javax.swing.JFrame {
         
         ///Bouton envoyant sur les bulletins d'une année d'un élève sélectionné
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jButton7.setText("voir bulletin(s)");
+        jButton7.setText("Voir bulletin(s)");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dispose();
@@ -653,7 +653,7 @@ public class studentGraph extends javax.swing.JFrame {
                             }
                         }
                     }
-        });
+                });
             }
         });
 

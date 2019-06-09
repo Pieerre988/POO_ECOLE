@@ -313,7 +313,12 @@ public class clsseGraph extends javax.swing.JFrame {
         jButton5.setText("Deconnexion");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                dispose();
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new connexion(School).setVisible(true);
+                    }
+                });
             }
         });
 
@@ -381,14 +386,36 @@ public class clsseGraph extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
+        
+        ArrayList<Classe> classes = School.getClasses();
+        ArrayList<ArrayList<String>> ClasseEcole = new ArrayList<ArrayList<String>>();
+        ArrayList<String> DonneeClasse = new ArrayList<String>();
+        
+        for(Classe cla : classes){
+            DonneeClasse.add(cla.getNiveau());
+            DonneeClasse.add(cla.getNom());
+            DonneeClasse.add(Integer.toString((int)cla.getAnnee_scolaire()));
+            ClasseEcole.add((ArrayList<String>) DonneeClasse.clone());
+            DonneeClasse.clear();
+        }
 
+        
+        ///Affichage de la liste des élèves
+        Object[][] ClasseGrap = null;
+        
+        if(ClasseEcole.size() > 0){
+            ClasseGrap = new Object [ClasseEcole.size()][3];
+        }
+        
+        for(int i = 0; i < ClasseEcole.size(); i++){
+            for(int j = 0; j < 3; j++){
+                ClasseGrap[i][j] = ClasseEcole.get(i).get(j);
+            }
+        }
+        
+        
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
+            ClasseGrap,
             new String [] {
                 "Niveau", "Nom", "Année"
             }
@@ -451,13 +478,13 @@ public class clsseGraph extends javax.swing.JFrame {
         });
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jButton7.setText("voir liste étudiants et profs");
+        jButton7.setText("Voir la liste étudiants et profs");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dispose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new connexion(School).setVisible(true);
+                        new listeEtudProf(School).setVisible(true);
                     }
                 });
             }
